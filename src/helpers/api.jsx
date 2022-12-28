@@ -13,7 +13,8 @@ export const parseUfs = (ufs) => {
 }
 // info.municipio.regiao_imediata.regiao_intermediaria.nome
 export const parseCityInfo = (city) => {
-  return city.map((info) => ({ 
+
+  const cityInfos = city.map((info) => ({ 
     id: info.id,
     label: info.nome,
     municipioNome:  info.municipio.nome,
@@ -24,7 +25,28 @@ export const parseCityInfo = (city) => {
     regiao: info.municipio.microrregiao.mesorregiao.UF.regiao.nome,
     regiaoSigla: info.municipio.microrregiao.mesorregiao.UF.regiao.sigla,
     regiaoIntermediariaNome: info['municipio']['regiao-imediata']['regiao-intermediaria']['nome']
+    
   }));
+
+  if(city.length > 1) {
+    const distritos = parseCityDistricts(city);
+    cityInfos["distritos"] = distritos;
+    console.log('**distritos ', cityInfos)
+
+  } 
+    
+
+  return cityInfos
+}
+
+const parseCityDistricts = (city) => {
+  const distritos = [];
+  city.forEach((distrito) => {
+    distritos.push(distrito.nome);
+  });
+
+  return distritos;
+
 }
 
 export const parseCities = (uf) => {

@@ -3,7 +3,7 @@ import React from 'react'
 const Select = ({text, name, options = [], handleOnChange, value}) => {
 
   return (
-    <div className='mr-6 flex flex-wrap md:flex-nowrap'>
+    <div className='mr-6 mb-2 md:mb-0 flex flex-wrap md:flex-nowrap'>
 
       <label className='text-xl mr-4' htmlFor={name}>{text}:</label>
 
@@ -13,7 +13,7 @@ const Select = ({text, name, options = [], handleOnChange, value}) => {
         <option value="">Selecione uma opção</option>
 
         {options.map(({ label, value } ) => {
-
+            
           return (
               <option value={value} key={value}>
                 {label}
