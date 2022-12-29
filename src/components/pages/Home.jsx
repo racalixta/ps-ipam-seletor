@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Select from '../form/Select';
-import { getUfs, getCities, parseUfs, parseCities, getCityInfos, parseCityInfo } from '../../helpers/api';
+import { getUfs, getCities, parseUfs, parseCities, getCityInfos, parseCityInfo, getLatLong } from '../../helpers/api';
 import InfoCard from '../card/InfoCard';
 
 const Home = () => {
@@ -10,6 +10,7 @@ const Home = () => {
   const [cityInfo, setCityInfo] = useState([]);
   const [selectedUf, setSelectedUf] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [latlong, setLatlong] = useState([]);
 
   useEffect(() => {
     getUfs()
@@ -18,6 +19,10 @@ const Home = () => {
       setUfs(ufs);
 
     });
+
+    // getLatLong().then((ufs) => {
+    //   setLatlong(ufs);
+    // })
 
   }, []);
 
@@ -53,6 +58,8 @@ const Home = () => {
     .then(parseCityInfo)
     .then((infos) => setCityInfo(infos));
     // console.log('cityInfo ', cityInfo)
+    // console.log('latlong ', latlong)
+
 
   }
 
@@ -75,9 +82,17 @@ const Home = () => {
       </div>
 
       {cityInfo.length > 0 ? (
-        <div className="bg-gray-200 border border-blue-500 rounded w-full flex flex-wrap items-center justify-center mt-4">
+        <div className='w-full flex flex-col md:flex-row mt-2'>
+          <div className="w-full md:w-2/6 md:mr-4">
 
-          <InfoCard cityInfo={cityInfo} />
+            <InfoCard cityInfo={cityInfo} />
+
+          </div>
+
+          <div className='w-full md:w-4/6 '>
+            <div id="map" className='h-96 mt-4 w-full border border-blue-500 rounded'></div>
+
+          </div>
 
         </div>
       ) : (
