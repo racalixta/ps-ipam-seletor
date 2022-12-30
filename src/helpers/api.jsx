@@ -11,7 +11,7 @@ export const parseUfs = (ufs) => {
   return ufs.map((uf) => ({ id: uf.id, label: uf.nome, value: uf.sigla })).sort(sortByAscending);
 
 }
-// info.municipio.regiao_imediata.regiao_intermediaria.nome
+
 export const parseCityInfo = (city) => {
 
   const cityInfos = city.map((info) => ({ 
@@ -78,47 +78,5 @@ export const getCityInfos = async(id) => {
   const cityInfos = await fetch(url).then(responseJson);
   console.log('cityInfos = ', cityInfos)
   return cityInfos;
-
-}
-
-export const getLatLong = async() => {
-
-  const url = "https://raw.githubusercontent.com/kelvins/Municipios-Brasileiros/main/json/municipios.json"
-  const latlongInfos = await fetch(url).then(responseJson);
-  // console.log('funca lat ', latlongInfos)
-  return latlongInfos
-}
-
-export const parseLatLong = async(cityId) => {
-  const all = await getLatLong();
-  console.log('all ', all)
-  all.map((city) => {
-    if(city.codigo_ibge === cityId) {
-      const infoCity = city
-      console.log('parselatlong-- ', infoCity)
-      mapBuild(infoCity.latitude, infoCity.longitude);
-    }
-  })
-}
-
-let map;
-export const mapBuild = (latitude, longitude) => {
-
-  if(map === undefined) {
-    map = L.map('map').setView([latitude, longitude], 13);
-
-  } else {
-    map.remove();
-    map = L.map('map').setView([latitude, longitude], 13);
-  }
-
-
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  L.marker([latitude, longitude]).addTo(map)
-      .bindPopup('Você está aqui!')
-      .openPopup();
 
 }

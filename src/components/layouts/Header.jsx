@@ -3,11 +3,9 @@ import React from 'react'
 const Header = () => {
   return (
     <header className='bg-gray-600 h-32 w-full px-8 shadow-md flex items-center'>
-      <div>
-        <h1 className='text-white text-2xl font-bold'>
-          IPAM
-        </h1>
-      </div>
+      <a href="https://ipam.org.br/pt/" target="_blank" className='w-20 cursor-pointer'>
+        <img src="/assets/images/ipam-logo.jpg" alt="IPAM Logo" />
+      </a>
     </header> 
   )
 }

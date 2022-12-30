@@ -1,13 +1,14 @@
 import React from 'react'
-import { parseLatLong } from '../../helpers/api';
+import { parseCoords } from '../../helpers/map';
 
 const InfoCard = (cityInfo = []) => {
   let count = 1;
   const { distritos } = cityInfo.cityInfo;
-  const cidadeInfo = cityInfo.cityInfo[0]
+  const cidadeInfo = cityInfo.cityInfo[0];
   const { id, label, municipioNome, municipioId, microrregiaoNome, mesorregiaoNome, ufNome, ufSigla, regiao, regiaoSigla, regiaoIntermediariaNome } = cidadeInfo;
-  const latlong = parseLatLong(municipioId);
-  console.log('infocar lat ', latlong)
+  
+  parseCoords(municipioId);
+
 
   return (
     <div className="bg-gray-200 border border-blue-500 rounded w-full flex flex-wrap items-center justify-center mt-4">

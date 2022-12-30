@@ -3,11 +3,11 @@ import React from 'react'
 const Select = ({text, name, options = [], handleOnChange, value}) => {
 
   return (
-    <div className='mr-6 mb-2 md:mb-0 flex flex-wrap md:flex-nowrap'>
+    <div className='mr-6 mb-2 md:mb-0 w-full flex flex-nowrap'>
 
-      <label className='text-xl mr-4' htmlFor={name}>{text}:</label>
+      <label className='text-xl mx-2 md:mx-0 md:mr-4' htmlFor={name}>{text}:</label>
 
-      <select className='text-black w-fit md:w-48 h-8 rounded-md' 
+      <select className='text-black mx-2 md:mx-0 w-4/6 md:w-48 h-8 rounded-md cursor-pointer' 
         name={name} id={name} onChange={handleOnChange}>
 
         <option value="">Selecione uma opção</option>

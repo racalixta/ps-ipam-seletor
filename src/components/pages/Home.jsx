@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Select from '../form/Select';
-import { getUfs, getCities, parseUfs, parseCities, getCityInfos, parseCityInfo, getLatLong } from '../../helpers/api';
+import { getUfs, getCities, parseUfs, parseCities, getCityInfos, parseCityInfo } from '../../helpers/api';
 import InfoCard from '../card/InfoCard';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
   const [cityInfo, setCityInfo] = useState([]);
   const [selectedUf, setSelectedUf] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [latlong, setLatlong] = useState([]);
+
 
   useEffect(() => {
     getUfs()
@@ -19,10 +19,6 @@ const Home = () => {
       setUfs(ufs);
 
     });
-
-    // getLatLong().then((ufs) => {
-    //   setLatlong(ufs);
-    // })
 
   }, []);
 
@@ -57,9 +53,7 @@ const Home = () => {
     const info = await getCityInfos(data.city)
     .then(parseCityInfo)
     .then((infos) => setCityInfo(infos));
-    // console.log('cityInfo ', cityInfo)
-    // console.log('latlong ', latlong)
-
+    console.log('cityInfo ', cityInfo)
 
   }
 
@@ -73,7 +67,7 @@ const Home = () => {
           <Select text="Estados" name="state" options={ufs} value="state" handleOnChange={handleSelectedUf} />
           <Select text="Cidades" name="city" options={cities} value="city" handleOnChange={handleSelectedCity}  />
 
-          <button className='bg-green-600 px-3 py-2 text-white rounded-md hover:bg-green-500' type='submit'>
+          <button className='bg-green-600 mx-2 md:mx-0 px-3 py-2 text-white rounded-md hover:bg-green-500' type='submit'>
             Buscar
           </button>
 
