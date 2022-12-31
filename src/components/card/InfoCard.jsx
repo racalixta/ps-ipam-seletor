@@ -4,9 +4,7 @@ import { parseCoords } from '../../helpers/map';
 const InfoCard = (cityInfo = []) => {
   let count = 1;
   const { distritos } = cityInfo.cityInfo;
-  const cidadeInfo = cityInfo.cityInfo[0];
-  const { id, label, municipioNome, municipioId, microrregiaoNome, mesorregiaoNome, ufNome, ufSigla, regiao, regiaoSigla, regiaoIntermediariaNome } = cidadeInfo;
-  
+  const { id, label, municipioNome, municipioId, microrregiaoNome, mesorregiaoNome, ufNome, ufSigla, regiao, regiaoSigla, regiaoIntermediariaNome } = cityInfo.cityInfo[0];
   parseCoords(municipioId);
 
 
@@ -65,4 +63,4 @@ const InfoCard = (cityInfo = []) => {
   )
 }
 
-export default InfoCard
+export default InfoCard;

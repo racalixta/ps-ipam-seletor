@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Select = ({text, name, options = [], handleOnChange, value}) => {
+const Select = ({text, name, options = [], handleOnChange}) => {
 
   return (
     <div className='mr-6 mb-2 md:mb-0 w-full flex flex-nowrap'>

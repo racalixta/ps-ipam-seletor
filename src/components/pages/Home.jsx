@@ -1,46 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCities, fetchUfs, setSelectedUf,  fetchCityInfo } from '../../actions/HomeActions';
 
 import Select from '../form/Select';
-import { getUfs, getCities, parseUfs, parseCities, getCityInfos, parseCityInfo } from '../../helpers/api';
 import InfoCard from '../card/InfoCard';
 
 const Home = () => {
-  const [ufs, setUfs] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [cityInfo, setCityInfo] = useState([]);
-  const [selectedUf, setSelectedUf] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
 
-
-  useEffect(() => {
-    getUfs()
-    .then(parseUfs)
-    .then((ufs) => {
-      setUfs(ufs);
-
-    });
-
-  }, []);
+  const ufs = useSelector(state => state.ufs);
+  const cities = useSelector(state => state.cities);
+  const selectedUf = useSelector(state => state.selectedUf);
+  const cityInfo = useSelector(state => state.cityInfo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getCities(selectedUf)
-    .then(parseCities)
-    .then((cities) => {
-      setCities(cities);
+    dispatch(fetchUfs());
+  }, [])
 
-    });
-
+  useEffect(() => {
+    dispatch(fetchCities(selectedUf));
   }, [selectedUf])
-
+  
   const handleSelectedUf = (event) => {
     const uf = event.target.value;
-    setSelectedUf(uf);
-
-  }
-
-  const handleSelectedCity = (event) => {
-    const city = event.target.value;
-    setSelectedCity(city);
+    dispatch(setSelectedUf(uf));
 
   }
 
@@ -48,12 +31,7 @@ const Home = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    // const info = await getCityInfos(data.city);
-
-    const info = await getCityInfos(data.city)
-    .then(parseCityInfo)
-    .then((infos) => setCityInfo(infos));
-    console.log('cityInfo ', cityInfo)
+    dispatch(fetchCityInfo(data.city));
 
   }
 
@@ -65,7 +43,8 @@ const Home = () => {
         <form onSubmit={handleSubmit} className="flex flex-col md:flex-row">
 
           <Select text="Estados" name="state" options={ufs} value="state" handleOnChange={handleSelectedUf} />
-          <Select text="Cidades" name="city" options={cities} value="city" handleOnChange={handleSelectedCity}  />
+    
+          <Select text="Cidades" name="city" options={cities} value="city"  />
 
           <button className='bg-green-600 mx-2 md:mx-0 px-3 py-2 text-white rounded-md hover:bg-green-500' type='submit'>
             Buscar
@@ -76,6 +55,7 @@ const Home = () => {
       </div>
 
       {cityInfo.length > 0 ? (
+          
         <div className='w-full flex flex-col md:flex-row mt-2'>
           <div className="w-full md:w-2/6 md:mr-4">
 
@@ -97,4 +77,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

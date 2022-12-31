@@ -76,7 +76,6 @@ export const getCityInfos = async(id) => {
 
   const url = `${BASE_URL}/localidades/municipios/${id}/distritos`
   const cityInfos = await fetch(url).then(responseJson);
-  console.log('cityInfos = ', cityInfos)
   return cityInfos;
 
 }
