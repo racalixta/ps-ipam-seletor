@@ -1,43 +1,46 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { parseCoords } from '../../helpers/map';
-
-const InfoCard = (cityInfo = []) => {
+ 
+const InfoCard = () => {
   let count = 1;
-  const { distritos } = cityInfo.cityInfo;
-  const { id, label, municipioNome, municipioId, microrregiaoNome, mesorregiaoNome, ufNome, ufSigla, regiao, regiaoSigla, regiaoIntermediariaNome } = cityInfo.cityInfo[0];
+  const cityInfo = useSelector(state => state.cityInfo);
+  const { distritos } = cityInfo;
+  const { cidade, municipio, municipioId, microrregiao, mesorregiao, ufNome, ufSigla, regiao, regiaoSigla, regiaoImediata, regiaoIntermediaria } = cityInfo[0];
   parseCoords(municipioId);
-
 
   return (
     <div className="bg-gray-200 border border-blue-500 rounded w-full flex flex-wrap items-center justify-center mt-4">
-      <ul className='my-4 w-10/12 flex flex-col flex-wrap' key={id}>
-        <li key={`nome${label}`}>
-          <span className='font-bold'>Cidade: </span> {label}.
+      <ul className='my-4 w-10/12 flex flex-col flex-wrap'>
+        <li>
+          <span className='font-bold'>Cidade: </span> {cidade}.
         </li>
-        <li key={`municipio${municipioNome}`}>
-          <span className='font-bold'>Município: </span> {municipioNome}.
+        <li>
+          <span className='font-bold'>Município: </span> {municipio}.
         </li>
-        <li key={`microrregiao${microrregiaoNome}`}>
-          <span className='font-bold'>Microrregiao: </span> {microrregiaoNome}.
+        <li>
+          <span className='font-bold'>Microrregiao: </span> {microrregiao}.
         </li>
-        <li key={`mesorregiao${mesorregiaoNome}`}>
-          <span className='font-bold'>Mesorregiao: </span> {mesorregiaoNome}.
+        <li>
+          <span className='font-bold'>Mesorregiao: </span> {mesorregiao}.
         </li>
-        <li key={`ufSigla${ufNome}`}>
+        <li>
           <span className='font-bold'>Uf: </span> {ufNome}, {ufSigla}.
         </li>
-        <li key={regiao}>
+        <li>
           <span className='font-bold'>Região: </span> {regiao}, {regiaoSigla}. 
         </li>
-        <li key={regiaoIntermediariaNome}>
-          <span className='font-bold'>Região-intermediaria: </span> {regiaoIntermediariaNome}.
+        <li>
+          <span className='font-bold'>Região-imediata: </span> {regiaoImediata}.
+        </li>
+        <li>
+          <span className='font-bold'>Região-intermediaria: </span> {regiaoIntermediaria}.
         </li>
 
         {distritos  ? (
-          <li key='distritos'>
+          <li>
             <span className='font-bold'>Distritos: </span> 
             
-
             {distritos.map((distrito) => {
               if(count === distritos.length) {
                 return <span key={distrito}>{distrito}. </span>
@@ -46,8 +49,6 @@ const InfoCard = (cityInfo = []) => {
                 count += 1;
                 return <span key={distrito}>{distrito}, </span>
               }
-              
-
               
             })}
 

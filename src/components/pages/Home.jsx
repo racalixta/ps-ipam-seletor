@@ -59,7 +59,7 @@ const Home = () => {
         <div className='w-full flex flex-col md:flex-row mt-2'>
           <div className="w-full md:w-2/6 md:mr-4">
 
-            <InfoCard cityInfo={cityInfo} />
+            <InfoCard />
 
           </div>
 

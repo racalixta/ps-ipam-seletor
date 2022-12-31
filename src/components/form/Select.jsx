@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Select = ({text, name, options = [], handleOnChange}) => {
 
@@ -19,9 +19,8 @@ const Select = ({text, name, options = [], handleOnChange}) => {
                 {label}
               </option>
           )
-
+ 
         })}
-
 
       </select>
 
@@ -29,4 +28,4 @@ const Select = ({text, name, options = [], handleOnChange}) => {
   )
 }
 
-export default Select
+export default Select;

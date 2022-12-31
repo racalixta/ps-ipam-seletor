@@ -16,23 +16,23 @@ export const parseCityInfo = (city) => {
 
   const cityInfos = city.map((info) => ({ 
     id: info.id,
-    label: info.nome,
-    municipioNome:  info.municipio.nome,
+    cidade: info.nome,
+    municipio:  info.municipio.nome,
     municipioId:  info.municipio.id,
-    microrregiaoNome: info.municipio.microrregiao.nome,
-    mesorregiaoNome: info.municipio.microrregiao.mesorregiao.nome, 
+    microrregiao: info.municipio.microrregiao.nome,
+    mesorregiao: info.municipio.microrregiao.mesorregiao.nome, 
     ufNome: info.municipio.microrregiao.mesorregiao.UF.nome,   
     ufSigla: info.municipio.microrregiao.mesorregiao.UF.sigla,
     regiao: info.municipio.microrregiao.mesorregiao.UF.regiao.nome,
     regiaoSigla: info.municipio.microrregiao.mesorregiao.UF.regiao.sigla,
-    regiaoIntermediariaNome: info['municipio']['regiao-imediata']['regiao-intermediaria']['nome']
+    regiaoImediata: info['municipio']['regiao-imediata']['nome'],
+    regiaoIntermediaria: info['municipio']['regiao-imediata']['regiao-intermediaria']['nome']
     
   }));
 
   if(city.length > 1) {
     const distritos = parseCityDistricts(city);
     cityInfos["distritos"] = distritos;
-    // console.log('**distritos ', cityInfos)
 
   } 
     
@@ -73,7 +73,6 @@ export const getCities = async(uf) => {
 
 export const getCityInfos = async(id) => {
   if(!id) return Promise.resolve([]);
-
   const url = `${BASE_URL}/localidades/municipios/${id}/distritos`
   const cityInfos = await fetch(url).then(responseJson);
   return cityInfos;
